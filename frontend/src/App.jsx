@@ -102,12 +102,14 @@ function App() {
           autoClose: 10000,
           hideProgressBar: true,
         });
+        localStorage.removeItem("wordleGameId");
       } else if (data.isOver) {
         toast.success(`Juego terminado. La palabra era: ${data.word}`, {
           autoClose: 10000,
           hideProgressBar: true,
         });
         setIsGameOver(true);
+        localStorage.removeItem("wordleGameId");
       }
     } catch (error) {
       toast.error("Error conectando con el backend", {

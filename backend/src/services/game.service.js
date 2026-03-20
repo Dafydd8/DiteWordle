@@ -121,6 +121,18 @@ export function submitGuess(gameId, guess) {
     game.isOver = true;
   } else if (game.attempts.length >= game.maxAttempts) {
     game.isOver = true;
+    return {
+      result,
+      attempts: game.attempts,
+      results: game.results,
+      isWon: game.isWon,
+      isOver: game.isOver,
+      word: game.secretWord,
+    };
+  }
+
+  if (game.isOver) {
+    games.delete(gameId);
   }
 
   return {
