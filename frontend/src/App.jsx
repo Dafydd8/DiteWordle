@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function App() {
   const [gameId, setGameId] = useState(null);
   const [attempts, setAttempts] = useState([]);
@@ -18,7 +20,7 @@ function App() {
       const savedGameId = localStorage.getItem("wordleGameId");
 
       if (savedGameId) {
-        const res = await fetch(`/api/game/${savedGameId}/state`);
+        const res = await fetch(`${API_URL}/api/game/${savedGameId}/state`);
 
         if (res.ok) {
           const data = await res.json();
@@ -30,7 +32,7 @@ function App() {
         }
       }
 
-      const res = await fetch("/api/game/start", { method: "POST" });
+      const res = await fetch(`${API_URL}/api/game/start`, { method: "POST" });
       const data = await res.json();
 
       localStorage.setItem("wordleGameId", data.gameId);
@@ -72,7 +74,7 @@ function App() {
 
   async function submitGuess() {
     try {
-      const res = await fetch(`/api/game/${gameId}/guess`, {
+      const res = await fetch(`${API_URL}/api/game/${gameId}/guess`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
