@@ -1,6 +1,6 @@
 function Tile({ letter, status, height = 58, width = 58, fontSize = "2rem", onClick }) {
   let backgroundColor = "white";
-  let borderColor = "#d3d6da";
+  let borderColor = "#d7d8db";
   let textColor = "black";
   if (status === 1) {
     backgroundColor = "#6aaa64";
