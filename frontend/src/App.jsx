@@ -5,14 +5,14 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
 function App() {
   const [gameId, setGameId] = useState(null);
   const [attempts, setAttempts] = useState([]);
   const [results, setResults] = useState([]);
   const [currentGuess, setCurrentGuess] = useState("");
-  const [attempt, setAttempt] = useState("");
+  //const [attempt, setAttempt] = useState("");
   const [isGameOver, setIsGameOver] = useState(false);
 
   useEffect(() => {
@@ -92,7 +92,7 @@ function App() {
         return;
       }
       
-      setAttempt(currentGuess);
+      // setAttempt(currentGuess);
       setAttempts((prev) => [...prev, currentGuess]);
       setResults((prev) => [...prev, data.result]);
       setCurrentGuess("");
@@ -132,7 +132,7 @@ function App() {
       />
 
       <KeyBoard
-        attempt={attempt}
+        attempts={attempts}
         results={results}
       />
       
