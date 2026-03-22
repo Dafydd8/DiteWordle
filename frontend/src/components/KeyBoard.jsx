@@ -1,6 +1,6 @@
 import KeyBoardRow from "./KeyBoardRow";
 
-const rows = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM'];
+const rows = ['QWERTYUIOP', 'ASDFGHJKL', '↩ZXCVBNM⌫'];
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 const letter_state = {};
@@ -9,7 +9,7 @@ for (const letter of alphabet) {
   letter_state[letter] = 'NotTried';
 }
 
-function KeyBoard({ attempts, results }) {
+function KeyBoard({ attempts, results, onKeyPress }) {
   if (results.length > 0 && dict_empty) {
     for (let i = 0; i < results.length; i++) {
       const result = results[i];
@@ -35,6 +35,7 @@ function KeyBoard({ attempts, results }) {
           key={index}
           letters={row.split("")}
           letter_state={letter_state}
+          onKeyPress={onKeyPress}
         />
       ))}
     </div>

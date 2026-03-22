@@ -1,4 +1,4 @@
-function Tile({ letter, status, height = 58, width = 58, fontSize = "2rem" }) {
+function Tile({ letter, status, height = 58, width = 58, fontSize = "2rem", onClick }) {
   let backgroundColor = "white";
   let borderColor = "#d3d6da";
   let textColor = "black";
@@ -21,7 +21,9 @@ function Tile({ letter, status, height = 58, width = 58, fontSize = "2rem" }) {
   }
 
   return (
-    <div
+    <button
+      onClick={onClick}
+      onMouseDown={(e) => e.preventDefault()}
       style={{
         width: `${width}px`,
         height: `${height}px`,
@@ -38,7 +40,7 @@ function Tile({ letter, status, height = 58, width = 58, fontSize = "2rem" }) {
       }}
     >
       {letter}
-    </div>
+    </button>
   );
 }
 
