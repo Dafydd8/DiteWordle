@@ -12,8 +12,29 @@ function App() {
   const [attempts, setAttempts] = useState([]);
   const [results, setResults] = useState([]);
   const [currentGuess, setCurrentGuess] = useState("");
-  //const [attempt, setAttempt] = useState("");
   const [isGameOver, setIsGameOver] = useState(false);
+
+  function handleKeyPress(key) {
+    if (isGameOver) return;
+
+    const upperKey = key.toUpperCase();
+
+    if (upperKey === "ENTER" || upperKey === "↩") {
+      submitGuess();
+      return;
+    }
+
+    if (upperKey === "BACKSPACE" || upperKey === "⌫") {
+      setCurrentGuess((prev) => prev.slice(0, -1));
+      return;
+    }
+
+    const isLetter = /^[A-ZÑ]$/.test(upperKey);
+
+    if (isLetter && currentGuess.length < 5) {
+      setCurrentGuess((prev) => prev + upperKey);
+    }
+  }
 
   useEffect(() => {
     async function initGame() {
@@ -44,32 +65,14 @@ function App() {
 
   useEffect(() => {
     function handleKeyDown(e) {
-      if (isGameOver) return;
-
-      const key = e.key.toUpperCase();
-
-      if (key === "ENTER") {
-        submitGuess();
-        return;
+        handleKeyPress(e.key);
       }
 
-      if (key === "BACKSPACE") {
-        setCurrentGuess((prev) => prev.slice(0, -1));
-        return;
-      }
+      window.addEventListener("keydown", handleKeyDown);
 
-      const isLetter = /^[A-ZÑ]$/.test(key);
-
-      if (isLetter && currentGuess.length < 5) {
-        setCurrentGuess((prev) => prev + key);
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
+      return () => {
+        window.removeEventListener("keydown", handleKeyDown);
+      };
   }, [currentGuess, isGameOver]);
 
   async function submitGuess() {
@@ -92,12 +95,11 @@ function App() {
         return;
       }
       
-      // setAttempt(currentGuess);
       setAttempts((prev) => [...prev, currentGuess]);
       setResults((prev) => [...prev, data.result]);
       setCurrentGuess("");
 
-      console.log("Respuesta del backend:", data);
+      //console.log("Respuesta del backend:", data);
       if (data.isWon) {
         setIsGameOver(true);
         toast.success("¡Felicidades! Has adivinado la palabra.", {
@@ -134,6 +136,7 @@ function App() {
       <KeyBoard
         attempts={attempts}
         results={results}
+        onKeyPress={handleKeyPress}
       />
       
       <ToastContainer

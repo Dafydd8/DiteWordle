@@ -8,7 +8,6 @@ import {
 export function startGameController(req, res) {
   try {
     const result = startGame();
-    console.log("Partida iniciada:", result);
     res.json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });

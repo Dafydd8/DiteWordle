@@ -1,6 +1,6 @@
 import Tile from "./Tile";
 
-function KeyBoardRow({ letters, letter_state}) {
+function KeyBoardRow({ letters, letter_state, onKeyPress }) {
   const tiles = [];
 
   for (let i = 0; i < letters.length; i++) {
@@ -12,9 +12,10 @@ function KeyBoardRow({ letters, letter_state}) {
         key={i}
         letter={letter}
         status={status}
-        height = {40}
-        width = {35}
-        fontSize = {"1.5rem"}
+        height={40}
+        width={35}
+        fontSize={"1.5rem"}
+        onClick={() => onKeyPress(letter)}
       />
     );
   }
